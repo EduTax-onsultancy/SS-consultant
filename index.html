@@ -1,317 +1,454 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<title>SS SOLUTIONS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-/* ---------- রঙ ও বেস ---------- */
-:root{
-    --primary:#0066ff;          /* গাঢ় নীল */
-    --secondary:#ff6600;        /* উজ্জ্বল কমলা */
-    --bg:#f0f5ff;               /* হালকা নীল‑বেইজ */
-    --white:#fff;
-    --shadow:rgba(0,0,0,0.15);
-    --radius:12px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রফেশনাল ওয়েবসাইট | [আপনার ব্র্যান্ড]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --dark: #121212;
+            --light: #f9f9f9;
+            --text: #333;
+            --transition: all 0.3s ease;
+        }
 
-/* ---------- গ্লোবাল ---------- */
-*{box-sizing:border-box;margin:0;padding:0;}
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--bg);
-    color:#222;
-}
-.container{max-width:1200px;margin:auto;padding:1rem;}
-h1,h2{color:var(--primary);}
+        .dark-mode {
+            --primary: #6ba3ff;
+            --secondary: #5a8bfa;
+            --dark: #f0f0f0;
+            --light: #121212;
+            --text: #fff;
+        }
 
-/* ---------- হেডার (৩D‑লাইটবক্স) ---------- */
-header{
-    perspective:900px;               /* 3D‑ইফেক্টের দূরত্ব */
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    color:var(--white);
-    padding:2rem 0;
-    text-align:center;
-}
-header h1{
-    font-size:2.4rem;
-    transform:rotateY(0deg);
-    transition:transform .6s;
-}
-header:hover h1{transform:rotateY(15deg);}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
 
-/* ---------- সার্ভিস‑কার্ড (গ্রেডিয়েন্ট + 3D) ---------- */
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:1.5rem;
-    margin-top:2rem;
-}
-.card{
-    background:var(--white);
-    border-radius:var(--radius);
-    padding:1.3rem;
-    box-shadow:0 4px 6px var(--shadow);
-    transition:transform .3s,box-shadow .3s;
-    transform-style:preserve-3d;
-}
-.card:hover{
-    transform:rotateX(6deg) rotateY(6deg);
-    box-shadow:0 12px 16px var(--shadow);
-}
-.card h3{margin-bottom:.5rem;color:var(--secondary);}
-.card p{font-size:.9rem;}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
 
-/* ---------- ক্যলকুলেটর ---------- */
-.calc{
-    background:var(--white);
-    border-radius:var(--radius);
-    max-width:500px;
-    margin:2rem auto;
-    padding:1.6rem;
-    box-shadow:0 4px 6px var(--shadow);
-}
-.calc label{display:block;margin-top:.8rem;}
-.calc input,.calc select{
-    width:100%;padding:.5rem;margin-top:.3rem;
-    border:1px solid #ccc;border-radius:4px;
-}
-.calc button{
-    margin-top:1rem;padding:.6rem 1.2rem;
-    background:var(--secondary);border:none;
-    color:var(--white);border-radius:4px;cursor:pointer;
-}
-.calc .result{margin-top:1rem;font-weight:bold;}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-/* ---------- এডমিন‑মডাল ---------- */
-.modal{
-    position:fixed;top:0;left:0;width:100%;height:100%;
-    background:rgba(0,0,0,.6);display:none;align-items:center;
-    justify-content:center;z-index:1000;
-}
-.modal.active{display:flex;}
-.modal .box{
-    background:var(--white);padding:2rem;
-    border-radius:var(--radius);width:90%;max-width:500px;
-    box-shadow:0 8px 12px var(--shadow);
-}
-.modal h2{margin-bottom:1rem;}
-.modal input,.modal textarea{
-    width:100%;margin-top:.4rem;padding:.5rem;
-    border:1px solid #ccc;border-radius:4px;
-}
-.modal button{
-    margin-top:.8rem;padding:.5rem 1rem;
-    background:var(--primary);color:var(--white);
-    border:none;border-radius:4px;cursor:pointer;
-}
-.close{
-    float:right;font-size:1.2rem;cursor:pointer;color:#777;
-}
+        /* Header */
+        header {
+            background: var(--dark);
+            color: var(--light);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-/* ---------- কল‑বুক (টেবিল) ---------- */
-.callbook{
-    background:var(--white);
-    border-radius:var(--radius);
-    max-width:800px;
-    margin:2rem auto;
-    padding:1.5rem;
-    box-shadow:0 4px 6px var(--shadow);
-}
-.callbook table{width:100%;border-collapse:collapse;}
-.callbook th,.callbook td{
-    border:1px solid #eee;padding:.5rem;text-align:left;
-}
-.callbook th{background:#e3f2fd;color:#000;}
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
 
-/* ---------- ফুটার ---------- */
-footer{
-    text-align:center;padding:1rem;background:#ddd;margin-top:3rem;
-}
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
 
-/* ---------- রেসপন্সিভ ---------- */
-@media(max-width:600px){
-    header h1{font-size:1.8rem;}
-}
-</style>
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--light);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light);
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--dark);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--secondary);
+            color: var(--light);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">প্রফেশনাল ব্র্যান্ড</div>
+                <ul class="nav-links">
+                    <li><a href="#home">হোম</a></li>
+                    <li><a href="#services">সেবা</a></li>
+                    <li><a href="#contact">যোগাযোগ</a></li>
+                </ul>
+                <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
+            </div>
+        </div>
+    </header>
 
-<header>
-    <h1>SS SOLUTIONS</h1>
-</header>
-
-<div class="container">
-
-    <!-- সার্ভিস‑বক্স -->
-    <section class="services">
-        <div class="card"><h3>ওপেন স্কুলিং</h3>
-            <p>MP, HS, BA, MA, LLB, নার্সিং, ITI, BILS ইত্যাদি।</p></div>
-        <div class="card"><h3>ইনকাম ট্যাক্স</h3>
-            <p>ফাইলিং, সল্যুশন এবং ট্যাক্স পরিকল্পনা।</p></div>
-        <div class="card"><h3>মোটর ইন্স্যুরেন্স</h3>
-            <p>কোট, নবায়ন ও ক্লেইম সাপোর্ট।</p></div>
-        <div class="card"><h3>লোন সেবা</h3>
-            <p>ব্যক্তিগত, শিক্ষা ও হোম‑লোন গাইডেন্স।</p></div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>আপনার ব্র্যান্ডের জন্য প্রফেশনাল ডিজাইন</h1>
+                <p>কুশলী ডিজাইনারদের সাথে কাজ করে আপনার ওয়েবসাইটকে আধুনিক এবং ব্যবহারকারী-বান্ধব করে তুলুন।</p>
+                <a href="#contact" class="btn">যোগাযোগ করুন</a>
+            </div>
+        </div>
     </section>
 
-    <!-- ফি‑ক্যালকুলেটর -->
-    <section class="calc">
-        <h2>ফি / EMI ক্যালকুলেটর</h2>
-        <label for="type">সেবা বাছাই</label>
-        <select id="type">
-            <option value="loan">লোন EMI</option>
-            <option value="insurance">মোটর ইন্স্যুরেন্স প্রিমিয়াম</option>
-        </select>
-
-        <label for="amount">প্রধান / ইনশিউরড ভ্যালু</label>
-        <input type="number" id="amount" placeholder="উদা.: 50000">
-
-        <label for="rate">বিনিয়োগ হার (%)</label>
-        <input type="number" id="rate" placeholder="উদা.: 9.5">
-
-        <label for="term">মেয়াদ (মাস)</label>
-        <input type="number" id="term" placeholder="উদা.: 24">
-
-        <button onclick="calculate()">গণনা করুন</button>
-        <div class="result" id="result"></div>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">আমাদের সেবাসমূহ</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-paint-brush service-icon"></i>
+                    <h3>ওয়েব ডিজাইন</h3>
+                    <p>আধুনিক এবং ব্যবহারকারী-বান্ধব ওয়েবসাইট ডিজাইন করা।</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-code service-icon"></i>
+                    <h3>ডেভেলপমেন্ট</h3>
+                    <p>কুশলী ডেভেলপারদের মাধ্যমে ওয়েবসাইটের বিকাশ।</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-mobile-alt service-icon"></i>
+                    <h3>মোবাইল ফ্রেন্ডলি</h3>
+                    <p>সকল ডিভাইসের জন্য অপ্টিমাইজড ডিজাইন।</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- কল‑বুক (সাধারণ দৃশ্য) -->
-    <section class="callbook">
-        <h2>কল‑বুক (এডমিন)</h2>
-        <table id="callTable">
-            <thead><tr><th>নাম</th><th>ফোন</th><th>নোট</th></tr></thead>
-            <tbody></tbody>
-        </table>
-        <button onclick="openAdmin('call')">এন্ট্রি যোগ করুন</button>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>আমাদের সাথে যোগাযোগ করুন</h2>
+                    <p><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</p>
+                    <p><i class="fas fa-phone"></i> +880123456789</p>
+                    <p><i class="fas fa-envelope"></i> info@example.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">নাম</label>
+                        <input type="text" id="name" placeholder="আপনার নাম লিখুন">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">ইমেইল</label>
+                        <input type="email" id="email" placeholder="আপনার ইমেইল লিখুন">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">মেসেজ</label>
+                        <textarea id="message" placeholder="আপনার বার্তা লিখুন"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">বার্তা পাঠান</button>
+                </form>
+            </div>
+        </div>
     </section>
 
-    <!-- এডমিন‑বাটন -->
-    <div style="text-align:center;margin-top:2rem;">
-        <button onclick="openAdmin('login')" style="padding:.6rem 1.2rem;
-            background:var(--primary);color:var(--white);border:none;
-            border-radius:4px;cursor:pointer;">
-            এডমিন প্যানেল
-        </button>
-    </div>
-</div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>প্রফেশনাল ব্র্যান্ড</h3>
+                    <p>আপনার ব্র্যান্ডের জন্য সর্বোত্তম ডিজাইন এবং ডেভেলপমেন্ট সেবা প্রদান করি।</p>
+                </div>
+                <div class="footer-column">
+                    <h3>সেবাসমূহ</h3>
+                    <ul>
+                        <li><a href="#services">ওয়েব ডিজাইন</a></li>
+                        <li><a href="#services">ডেভেলপমেন্ট</a></li>
+                        <li><a href="#services">মোবাইল ফ্রেন্ডলি</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>যোগাযোগ</h3>
+                    <ul>
+                        <li><a href="tel:+880123456789">+880123456789</a></li>
+                        <li><a href="mailto:info@example.com">info@example.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; ২০২৬ প্রফেশনাল ব্র্যান্ড. সব অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
 
-<footer>© 2026 SS SOLUTIONS – সমস্ত অধিকার সংরক্ষিত।</footer>
+    <!-- JavaScript for Dark Mode Toggle -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
 
-<!-- ==================== মডাল ==================== -->
-<div class="modal" id="loginModal">
-    <div class="box">
-        <span class="close" onclick="closeModal('loginModal')">&times;</span>
-        <h2>এডমিন লগইন</h2>
-        <input type="password" id="adminPass" placeholder="পাসওয়ার্ড">
-        <button onclick="adminLogin()">প্রবেশ</button>
-    </div>
-</div>
-
-<div class="modal" id="adminModal">
-    <div class="box">
-        <span class="close" onclick="closeModal('adminModal')">&times;</span>
-        <h2>এডমিন ড্যাশবোর্ড</h2>
-
-        <h3>এজেন্ট ম্যানেজমেন্ট</h3>
-        <ul id="agentList"></ul>
-        <input type="text" id="newAgent" placeholder="এজেন্টের নাম">
-        <button onclick="addAgent()">এজেন্ট যোগ করুন</button>
-
-        <h3 style="margin-top:1rem;">কল‑বুক যোগ করুন</h3>
-        <input type="text" id="cName" placeholder="নাম">
-        <input type="text" id="cPhone" placeholder="ফোন">
-        <textarea id="cNotes" rows="2" placeholder="নোট"></textarea>
-        <button onclick="addCall()">সেভ করুন</button>
-    </div>
-</div>
-
-<script>
-/* ---------- ক্যলকুলেটর ---------- */
-function calculate(){
-    const type=document.getElementById('type').value;
-    const P=+document.getElementById('amount').value;
-    const r=+document.getElementById('rate').value/12/100;
-    const n=+document.getElementById('term').value;
-    if(!P||!r||!n){document.getElementById('result').textContent='সব ফিল্ড পূরণ করুন';return;}
-    if(type==='loan'){
-        const emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-        document.getElementById('result').textContent=`মাসিক EMI: ₹${emi.toFixed(2)}`;
-    }else{
-        const premium=P*(r*12);
-        document.getElementById('result').textContent=`প্রতিমাসিক প্রিমিয়াম: ₹${premium.toFixed(2)}`;
-    }
-}
-
-/* ---------- এডমিন লজিক ---------- */
-const ADMIN_PASS='ssadmin2026';        // ← প্রোডাকশনে শক্ত পাসওয়ার্ড দিন
-
-function openAdmin(mode){
-    if(mode==='login') document.getElementById('loginModal').classList.add('active');
-    else document.getElementById('adminModal').classList.add('active');
-    renderAgents(); renderCalls();
-}
-function closeModal(id){ document.getElementById(id).classList.remove('active'); }
-
-function adminLogin(){
-    const pw=document.getElementById('adminPass').value;
-    if(pw===ADMIN_PASS){closeModal('loginModal');openAdmin('panel');}
-    else alert('ভুল পাসওয়ার্ড');
-}
-
-/* ----- এজেন্ট ----- */
-function getAgents(){return JSON.parse(localStorage.getItem('agents')||'[]');}
-function saveAgents(a){localStorage.setItem('agents',JSON.stringify(a));}
-function renderAgents(){
-    const ul=document.getElementById('agentList');
-    ul.innerHTML='';
-    getAgents().forEach((name,i)=>{
-        const li=document.createElement('li');
-        li.textContent=name+' ';
-        const del=document.createElement('button');
-        del.textContent='মুছুন';
-        del.style.marginLeft='8px';
-        del.onclick=()=>{delAgent(i);};
-        li.appendChild(del);
-        ul.appendChild(li);
-    });
-}
-function addAgent(){
-    const name=document.getElementById('newAgent').value.trim();
-    if(!name) return;
-    const arr=getAgents(); arr.push(name); saveAgents(arr);
-    document.getElementById('newAgent').value=''; renderAgents();
-}
-function delAgent(idx){
-    const arr=getAgents(); arr.splice(idx,1); saveAgents(arr); renderAgents();
-}
-
-/* ----- কল‑বুক ----- */
-function getCalls(){return JSON.parse(localStorage.getItem('calls')||'[]');}
-function saveCalls(c){localStorage.setItem('calls',JSON.stringify(c));}
-function renderCalls(){
-    const tbody=document.querySelector('#callTable tbody');
-    tbody.innerHTML='';
-    getCalls().forEach(c=>{
-        const tr=document.createElement('tr');
-        tr.innerHTML=`<td>${c.name}</td><td>${c.phone}</td><td>${c.notes}</td>`;
-        tbody.appendChild(tr);
-    });
-}
-function addCall(){
-    const name=document.getElementById('cName').value.trim();
-    const phone=document.getElementById('cPhone').value.trim();
-    const notes=document.getElementById('cNotes').value.trim();
-    if(!name||!phone) return;
-    const arr=getCalls(); arr.push({name,phone,notes}); saveCalls(arr);
-    document.getElementById('cName').value=''; document.getElementById('cPhone').value=''; document.getElementById('cNotes').value='';
-    renderCalls();
-}
-
-/* পেজ লোডে কল‑বুক দেখাও (সাজেশন) */
-renderCalls();
-</script>
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+    </script>
 </body>
-            </html>
-    
+    </html>
