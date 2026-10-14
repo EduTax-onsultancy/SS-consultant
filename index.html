@@ -1,416 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="bn">
 <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta charset="utf-8">
-    <title>shikshadootfoundation</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet"> 
-
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Owl Carousel & Lightbox CDN CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
-    <!-- All Embedded Custom & Template CSS -->
+    <title>শিক্ষা দূত ফাউন্ডেশন</title>
     <style>
-        /* Base / Theme Variables & Overrides */
-        :root {
-            --bs-primary: #ff4880;
-            --bs-secondary: #00bcd4;
+        /* ---- রিসেট ও বেস স্টাইল ---- */
+        *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height:1.6; color:#333; background:#f9f9f9; }
+
+        a { text-decoration:none; color:inherit; }
+        ul { list-style:none; }
+
+        /* ---- হেডার ---- */
+        header {
+            background:#004080;
+            color:#fff;
+            padding:1rem 2rem;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .logo { font-size:1.5rem; font-weight:bold; }
+        nav ul { display:flex; gap:1.5rem; }
+        nav a { color:#fff; font-weight:500; transition:opacity .2s; }
+        nav a:hover { opacity:0.8; }
+
+        /* ---- হিরো সেকশন ---- */
+        .hero {
+            background:url('https://via.placeholder.com/1500x500') center/cover no-repeat;
+            color:#fff;
+            text-align:center;
+            padding:6rem 2rem;
+        }
+        .hero h1 { font-size:2.8rem; margin-bottom:.5rem; }
+        .hero p { font-size:1.2rem; margin-bottom:1.5rem; }
+        .hero .cta { background:#ffcc00; color:#000; padding:.8rem 1.5rem; border-radius:4px; font-weight:bold; }
+
+        /* ---- সেবা (Services) ---- */
+        .services { padding:4rem 2rem; background:#fff; }
+        .services h2 { text-align:center; margin-bottom:2rem; }
+        .service-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+            gap:2rem;
+        }
+        .service-item {
+            background:#f0f8ff;
+            padding:1.5rem;
+            border-radius:8px;
+            text-align:center;
+            transition:transform .2s;
+        }
+        .service-item:hover { transform:translateY(-5px); }
+        .service-item img { max-width:80px; margin-bottom:1rem; }
+
+        /* ---- সম্পর্কে (About) ---- */
+        .about { padding:4rem 2rem; background:#e9f5ff; display:flex; flex-wrap:wrap; gap:2rem; align-items:center; }
+        .about img { flex:1 1 300px; max-width:100%; border-radius:8px; }
+        .about .text { flex:1 1 300px; }
+
+        /* ---- যোগাযোগ (Contact) ---- */
+        .contact { padding:4rem 2rem; background:#fff; text-align:center; }
+        .contact h2 { margin-bottom:1rem; }
+        .contact form { max-width:500px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+        .contact input, .contact textarea {
+            padding:.8rem;
+            border:1px solid #ccc;
+            border-radius:4px;
+            width:100%;
+        }
+        .contact button {
+            background:#004080; color:#fff; border:none; padding:.8rem;
+            border-radius:4px; cursor:pointer; font-weight:bold;
         }
 
-        .btn-border-radius {
-            border-radius: 30px;
+        /* ---- ফুটার ---- */
+        footer {
+            background:#00264d; color:#ccc; text-align:center; padding:1.5rem;
+            font-size:.9rem;
         }
 
-        .title-border-radius {
-            border-radius: 15px;
-        }
-
-        .img-border-radius {
-            border-radius: 20px;
-        }
-
-        /* Hero Header */
-        .hero-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/hero-bg.jpg');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        /* Gallery Grid & Lightbox Styles */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 8px;
-        }
-
-        .lightbox .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .lightbox .nav {
-            position: absolute;
-            top: 50%;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            user-select: none;
-            padding: 10px;
-            transform: translateY(-50%);
-        }
-
-        .lightbox .prev { left: 20px; }
-        .lightbox .next { right: 20px; }
-
-        /* Custom Card Hover Effects */
-        .service-item, .program-item, .events-item, .blog-item, .team-item {
-            transition: 0.5s;
-        }
-
-        .service-item:hover, .program-item:hover, .events-item:hover, .blog-item:hover, .team-item:hover {
-            box-shadow: 0 0 45px rgba(0, 0, 0, .08);
-        }
-
-        /* Back to top button */
-        .back-to-top {
-            position: fixed;
-            right: 30px;
-            bottom: 30px;
-            display: none;
-            z-index: 99;
-        }
-
-        /* Owl Green Theme Integration */
-        .owl-theme .owl-nav {
-          margin-top: 10px;
-          text-align: center;
-          -webkit-tap-highlight-color: transparent;
-        }
-        .owl-theme .owl-nav [class*='owl-'] {
-          color: #FFF;
-          font-size: 14px;
-          margin: 5px;
-          padding: 4px 7px;
-          background: #D6D6D6;
-          display: inline-block;
-          cursor: pointer;
-          border-radius: 3px;
-        }
-        .owl-theme .owl-nav [class*='owl-']:hover {
-          background: #4DC7A0;
-          color: #FFF;
-          text-decoration: none;
-        }
-        .owl-theme .owl-nav .disabled {
-          opacity: 0.5;
-          cursor: default;
-        }
-        .owl-theme .owl-nav.disabled + .owl-dots {
-          margin-top: 10px;
-        }
-        .owl-theme .owl-dots {
-          text-align: center;
-          -webkit-tap-highlight-color: transparent;
-        }
-        .owl-theme .owl-dots .owl-dot {
-          display: inline-block;
-          zoom: 1;
-        }
-        .owl-theme .owl-dots .owl-dot span {
-          width: 10px;
-          height: 10px;
-          margin: 5px 7px;
-          background: #D6D6D6;
-          display: block;
-          -webkit-backface-visibility: visible;
-          transition: opacity 200ms ease;
-          border-radius: 30px;
-        }
-        .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
-          background: #4DC7A0;
+        /* ---- রেসপন্সিভ ---- */
+        @media (max-width:768px){
+            header { flex-direction:column; gap:.5rem; }
+            .hero h1 { font-size:2.2rem; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Spinner Start -->
-    <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-grow text-primary" role="status"></div>
-    </div>
-    <!-- Spinner End -->
+    <!-- Header -->
+    <header>
+        <div class="logo">শিক্ষা দূত ফাউন্ডেশন</div>
+        <nav>
+            <ul>
+                <li><a href="#home">হোম</a></li>
+                <li><a href="#services">সেবা</a></li>
+                <li><a href="#about">আমাদের সম্পর্কে</a></li>
+                <li><a href="#contact">যোগাযোগ</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Navbar start -->
-    <div class="container-fluid border-bottom bg-light wow fadeIn" data-wow-delay="0.1s">
-        <div class="container topbar bg-primary d-none d-lg-block py-2" style="border-radius: 0 40px">
-            <div class="d-flex justify-content-between">
-                <div class="top-info ps-2">
-                    <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Barasat,WestBengal,(N) 24 PGS,Kol-124,India</a></small>
-                    <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">sssolutions198@gmail.com</a></small>
-                </div>
-                <div class="top-link pe-2">
-                    <a href="https://www.facebook.com/ShikshaDootFoundation/" class="btn btn-light btn-sm-square rounded-circle"><i class="fab fa-facebook-f text-secondary"></i></a>
-                    <a href="" class="btn btn-light btn-sm-square rounded-circle"><i class="fab fa-twitter text-secondary"></i></a>
-                    <a href="" class="btn btn-light btn-sm-square rounded-circle"><i class="fab fa-instagram text-secondary"></i></a>
-                    <a href="" class="btn btn-light btn-sm-square rounded-circle me-0"><i class="fab fa-linkedin-in text-secondary"></i></a>
-                </div>
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <h1>শিক্ষা দূত ফাউন্ডেশন</h1>
+        <p>আপনার ভবিষ্যৎ গড়ে তোলার সেরা শিক্ষা পরামর্শদাতা</p>
+        <a href="#contact" class="cta">এখনই যোগাযোগ করুন</a>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <h2>আমাদের সেবা</h2>
+        <div class="service-grid">
+            <div class="service-item">
+                <img src="https://via.placeholder.com/80" alt="Career Counseling">
+                <h3>ক্যারিয়ার কাউন্সেলিং</h3>
+                <p>আপনার স্বপ্নের ক্যারিয়ার গড়ে তোলার জন্য ব্যক্তিগত পরামর্শ।</p>
+            </div>
+            <div class="service-item">
+                <img src="https://via.placeholder.com/80" alt="Study Abroad">
+                <h3>বিদেশে পড়াশোনা</h3>
+                <p>বিশ্বের শীর্ষ বিশ্ববিদ্যালয়ে ভর্তি হওয়ার সম্পূর্ণ গাইডলাইন।</p>
+            </div>
+            <div class="service-item">
+                <img src="https://via.placeholder.com/80" alt="Exam Prep">
+                <h3>পরীক্ষা প্রস্তুতি</h3>
+                <p>বিভিন্ন প্রতিযোগিতামূলক পরীক্ষার জন্য কাস্টমাইজড কোর্স।</p>
+            </div>
+            <div class="service-item">
+                <img src="https://via.placeholder.com/80" alt="Scholarships">
+                <h3>বৃত্তি সহায়তা</h3>
+                <p>বিভিন্ন বৃত্তি ও আর্থিক সহায়তার তথ্য ও আবেদন প্রক্রিয়া।</p>
             </div>
         </div>
-        <div class="container px-0">
-            <nav class="navbar navbar-light navbar-expand-xl py-3">
-                <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Shiksha<span class="text-secondary">Doot Foundation</span></h1></a>
-                <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars text-primary"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Services</a>
-                        <a href="program.html" class="nav-item nav-link">Programs</a>
-                        <a href="event.html" class="nav-item nav-link">Events</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                <a href="blog.html" class="dropdown-item">Our Blog</a>
-                                <a href="team.html" class="dropdown-item">Our Team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
-                                <a href="gallery.html" class="dropdown-item">Gallery</a>
-                                <a href="admission.html" class="dropdown-item">Admission From</a>
-                                <a href="idcard.html" class="dropdown-item">id card</a>
-                                <a href="find.html" class="dropdown-item">Find Solemate</a>
-                                <a href="fadmin.html" class="dropdown-item">F-Admin Login</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                    <div class="d-flex me-4">
-                        <div id="phone-tada" class="d-flex align-items-center justify-content-center">
-                            <a href="" class="position-relative wow tada" data-wow-delay=".9s" >
-                                <i class="fa fa-phone-alt text-primary fa-2x me-4"></i>
-                                <div class="position-absolute" style="top: -7px; left: 20px;">
-                                    <span><i class="fa fa-comment-dots text-secondary"></i></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="d-flex flex-column pe-3 border-end border-primary">
-                            <span class="text-primary">Have any questions?</span>
-                            <a href="#"><span class="text-secondary">Free: + 91 9038401071</span></a>
-                        </div>
-                    </div>
-                    <button class="btn-search btn btn-primary btn-md-square rounded-circle" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-white"></i></button>
-                </div>
-            </nav>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <img src="https://via.placeholder.com/600x400" alt="About Us">
+        <div class="text">
+            <h2>আমাদের সম্পর্কে</h2>
+            <p>শিক্ষা দূত ফাউন্ডেশন ২০১৫ সালে প্রতিষ্ঠিত হয় এবং তখন থেকে শত শত শিক্ষার্থীকে সঠিক ক্যারিয়ার পথ ও উচ্চশিক্ষার সুযোগ প্রদান করেছে। আমাদের টিমে অভিজ্ঞ শিক্ষাবিদ, ক্যারিয়ার কোচ এবং আন্তর্জাতিক শিক্ষাপ্রতিষ্ঠানের প্রতিনিধিরা রয়েছেন।</p>
+            <p>আমরা বিশ্বাস করি, সঠিক দিকনির্দেশনা এবং সমর্থন দিয়ে প্রতিটি শিক্ষার্থী তার পূর্ণ সম্ভাবনা অর্জন করতে পারে।</p>
         </div>
-    </div>
-    <!-- Navbar End -->
+    </section>
 
-    <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex align-items-center">
-                    <div class="input-group w-75 mx-auto d-flex">
-                        <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                        <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Search End -->
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2>যোগাযোগ করুন</h2>
+        <form action="#" method="post">
+            <input type="text" name="name" placeholder="আপনার নাম" required>
+            <input type="email" name="email" placeholder="ইমেইল" required>
+            <textarea name="message" rows="4" placeholder="আপনার বার্তা" required></textarea>
+            <button type="submit">পাঠান</button>
+        </form>
+    </section>
 
-    <!-- Hero Start -->
-    <div class="container-fluid py-5 hero-header wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-7 col-md-12">
-                    <h1 class="mb-3 text-primary">শিক্ষা এখন হাতের নাগালে—বয়স নয়, ইচ্ছাই যথেষ্ট।</h1>
-                    <h1 class="mb-5 display-1 text-white">সময়–বয়স যাই হোক, ঘর থেকেই শেখার সহজ সমাধান।</h1>
-                    <a href="admission.html" class="btn btn-primary px-4 py-3 px-md-5 me-4 btn-border-radius">Get Started</a>
-                    <a href="https://wa.me/9038401071?text=আমি%20আপনাদের%20সার্ভিস%20সম্পর্কে%20জানতে%20চাই" class="btn btn-primary px-4 py-3 px-md-5 btn-border-radius">WhatsApp</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Hero End -->
+    <!-- Footer -->
+    <footer>
+        © 2026 শিক্ষা দূত ফাউন্ডেশন | সব অধিকার সংরক্ষিত |
+        <a href="mailto:info@shikshadootfoundation.org" style="color:#ccc;">info@shikshadootfoundation.org</a>
+    </footer>
 
-    <!-- About Start -->
-    <div class="container-fluid py-5 about bg-light">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="video border">
-                        <button type="button" class="btn btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="col-lg-7 wow fadeIn" data-wow-delay="0.3s">
-                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">About Us</h4>
-                    <h1 class="text-dark mb-4 display-5">Welcome to Shiksa Doot Foundation</h1>
-                    <p class="text-dark mb-4">আমরা একটি বিশ্বস্ত ও অভিজ্ঞ এডুকেশন কনসালট্যান্সি, যেখানে স্বল্প সময়ে ও স্বল্প খরচে আপনার কাঙ্ক্ষিত শিক্ষাগত যোগ্যতা অর্জনে সহায়তা করা হয BOSSE (Sikkim Board).Rabindra Mukto Vidyalaya এই বোর্ডগুলোর মাধ্যমে মাত্র ৬–৮ মাসের মধ্যে নিশ্চিত পাশের গ্যারান্টি প্রদান করা হয।</p>
-                    <div class="row mb-4">
-                        <div class="col-lg-6">
-                            <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Madhyamik(Secondary),H.S (Higher Secondary)</h6>
-                            <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>B.A,M.A,LLB,BALLB</h6>
-                            <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-secondary"></i>ANM GNM ,B.Pharma,D.Pharma</h6>
-                        </div>
-                        <div class="col-lg-6">
-                            <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>ITI & Technical Courses</h6>
-                            <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>অল্প সময়ে অল্প খরচে (৬ থেকে ৮ মাসের মধ্যে )</h6>
-                            <h6><i class="fas fa-check-circle me-2 text-secondary"></i>এবং আরও বিভিন্ন জব-অরিয়েন্টেড কোর্স</h6>
-                        </div>
-                    </div>
-                    <a href="" class="btn btn-primary px-5 py-3 btn-border-radius">More Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Video -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always" allow="autoplay"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
-
-    <!-- Poster Gallery Start -->
-    <div class="container-fluid service py-5">
-        <div class="container py-5">
-            <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
-                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">What We Do</h4>
-                <h1 class="mb-5 display-3">Our Poster Gallery View</h1>
-            </div>
-            <div class="gallery" id="posterGallery">
-                <img src="poster/sdfimg-24.jpg" alt="image 24">
-                <img src="poster/sdfimg-23.jpg" alt="image 23">
-                <img src="poster/sdfimg-22.jpg" alt="image 22">
-                <img src="poster/sdfimg-21.jpg" alt="image 21">
-                <img src="poster/sdfimg-1.jpg" alt="image 1">
-                <img src="poster/sdfimg-2.jpg" alt="image 2">
-                <img src="poster/sdfimg-3.jpg" alt="image 3">
-                <img src="poster/sdfimg-4.jpg" alt="image 4">
-                <img src="poster/sdfimg-5.jpg" alt="image 5">
-                <img src="poster/sdfimg-6.jpg" alt="image 6">
-                <img src="poster/sdfimg-7.jpg" alt="image 7">
-                <img src="poster/sdfimg-8.jpg" alt="image 8">
-                <img src="poster/sdfimg-9.jpg" alt="image 9">
-                <img src="poster/sdfimg-10.jpg" alt="image 10">
-                <img src="poster/sdfimg-11.jpg" alt="image 11">
-                <img src="poster/sdfimg-12.jpg" alt="image 12">
-                <img src="poster/sdfimg-13.jpg" alt="image 13">
-                <img src="poster/sdfimg-14.jpg" alt="image 14">
-                <img src="poster/sdfimg-15.jpg" alt="image 15">
-                <img src="poster/sdfimg-16.jpg" alt="image 16">
-                <img src="poster/sdfimg-17.jpg" alt="image 17">
-                <img src="poster/sdfimg-18.jpg" alt="image 18">
-                <img src="poster/sdfimg-19.jpg" alt="image 19">
-                <img src="poster/sdfimg-20.jpg" alt="image 20">
-            </div>
-
-            <!-- Custom Lightbox -->
-            <div class="lightbox" id="lightbox">
-                <span class="close" onclick="closeBox()">&times;</span>
-                <span class="nav prev" onclick="prev()">❮</span>
-                <img id="lightImg" src="" alt="Enlarged View">
-                <span class="nav next" onclick="next()">❯</span>
-            </div>
-        </div>
-    </div>
-    <!-- Gallery End -->
-
-    <!-- Service Start -->
-    <div class="container-fluid service py-5">
-        <div class="container py-5">
-            <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
-                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">What We Do</h4>
-                <h1 class="mb-5 display-3">Thanks To Get Started With Our School</h1>
-            </div>
-            <div class="row g-5">
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="text-center border-primary border bg-white service-item">
-                        <div class="service-content d-flex align-items-center justify-content-center p-4">
-                            <div class="service-content-inner">
-                                <div class="p-4"><i class="fas fa-gamepad fa-6x text-primary"></i></div>
-                                <a href="#" class="h4">Study & Game</a>
-                                <p class="my-3">এখানে পড়াশোনা ও গেম একসাথে। শিখুন, খেলুন এবং নিজের দক্ষতা বাড়ান। সহজ ভাষায় সাজানো পড়াশোনা ও মজার গেম—সবই 
+</body>
+</html>
