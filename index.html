@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS SOLUTIONS | Professional Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; overflow-x: hidden; background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; }
+        #canvas-container { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .service-card:hover { transform: translateY(-10px); transition: all 0.3s ease; border-color: #3b82f6; }
+        .hidden-section { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <h1 class="text-2xl font-bold tracking-tighter text-blue-400">SS SOLUTIONS</h1>
+        <div class="space-x-6 hidden md:flex">
+            <a href="#services" class="hover:text-blue-400 transition">Services</a>
+            <a href="#calculator" class="hover:text-blue-400 transition">Calculator</a>
+            <a href="#booking" class="hover:text-blue-400 transition">Book Call</a>
+            <button onclick="showSection('admin-login')" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition">Admin</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex flex-col justify-center items-center text-center px-4">
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 animate-pulse">Your Gateway to <span class="text-blue-500">Professional Growth</span></h2>
+        <p class="text-gray-400 max-w-2xl text-lg mb-8">Expert solutions for Open Schooling, Tax filings, Insurance, and Loans. All in one place.</p>
+        <a href="#services" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition transform">Explore Services</a>
+    </section>
+
+    <!-- Service Boxes -->
+    <section id="services" class="py-20 max-w-7xl mx-auto px-6">
+        <h3 class="text-3xl font-bold text-center mb-12">Our Services</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Open Schooling -->
+            <div class="glass p-8 rounded-2xl service-card">
+                <i class="fas fa-graduation-cap text-4xl text-blue-400 mb-4"></i>
+                <h4 class="text-xl font-bold mb-2">Open Schooling</h4>
+                <p class="text-gray-400 text-sm">MP, HS, BA, MA, LLb, Nursing, ITI, Bils & more.</p>
+            </div>
+            <!-- Income Tax -->
+            <div class="glass p-8 rounded-2xl service-card">
+                <i class="fas fa-file-invoice-dollar text-4xl text-green-400 mb-4"></i>
+                <h4 class="text-xl font-bold mb-2">Income Tax</h4>
+                <p class="text-gray-400 text-sm">Expert filing, planning, and tax-related consultancy.</p>
+            </div>
+            <!-- Insurance -->
+            <div class="glass p-8 rounded-2xl service-card">
+                <i class="fas fa-car-crash text-4xl text-red-400 mb-4"></i>
+                <h4 class="text-xl font-bold mb-2">Motor Insurance</h4>
+                <p class="text-gray-400 text-sm">Comprehensive and Third Party insurance solutions.</p>
+            </div>
+            <!-- Loans -->
+            <div class="glass p-8 rounded-2xl service-card">
+                <i class="fas fa-hand-holding-usd text-4xl text-yellow-400 mb-4"></i>
+                <h4 class="text-xl font-bold mb-2">Loan Services</h4>
+                <p class="text-gray-400 text-sm">Personal, Business, and Educational loan assistance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fees Calculator -->
+    <section id="calculator" class="py-20 max-w-3xl mx-auto px-6">
+        <div class="glass p-10 rounded-3xl text-center">
+            <h3 class="text-3xl font-bold mb-6">Fees Estimator</h3>
+            <div class="flex flex-col gap-4 text-left">
+                <label class="text-gray-400">Select Service</label>
+                <select id="calc-service" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none">
+                    <option value="1000">Open Schooling (Basic)</option>
+                    <option value="2000">Tax Filing (Individual)</option>
+                    <option value="1500">Insurance Setup</option>
+                    <option value="3000">Loan Consultancy</option>
+                </select>
+                <label class="text-gray-400">Additional Modules/Documents</label>
+                <input type="number" id="calc-extra" value="0" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none">
+                <button onclick="calculateFees()" class="bg-blue-600 py-3 rounded-lg font-bold hover:bg-blue-500 transition mt-4">Calculate Total</button>
+                <div id="calc-result" class="text-2xl font-bold text-center mt-6 text-blue-400">Total: ₹0</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call Booking -->
+    <section id="booking" class="py-20 max-w-3xl mx-auto px-6 mb-20">
+        <div class="glass p-10 rounded-3xl">
+            <h3 class="text-3xl font-bold text-center mb-8">Book a Consultation</h3>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" placeholder="Your Name" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none focus:border-blue-500">
+                <input type="tel" placeholder="Phone Number" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none focus:border-blue-500">
+                <input type="date" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none focus:border-blue-500">
+                <button type="button" onclick="alert('Booking request sent!')" class="bg-blue-600 py-3 rounded-lg font-bold hover:bg-blue-500 transition">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Admin Panel Section -->
+    <section id="admin-login" class="hidden-section py-20 max-w-md mx-auto px-6">
+        <div class="glass p-10 rounded-3xl text-center">
+            <h3 class="text-2xl font-bold mb-6">Admin Login</h3>
+            <input type="password" id="admin-pass" placeholder="Enter Password" class="w-full bg-slate-800 p-3 rounded-lg border border-gray-600 mb-4 outline-none">
+            <button onclick="checkAdmin()" class="w-full bg-blue-600 py-3 rounded-lg font-bold">Login</button>
+            <button onclick="showSection('hero')" class="mt-4 text-gray-400 underline">Back to Home</button>
+        </div>
+    </section>
+
+    <section id="admin-panel" class="hidden-section py-20 max-w-4xl mx-auto px-6">
+        <div class="glass p-10 rounded-3xl">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-3xl font-bold">Agent Management</h3>
+                <button onclick="showSection('hero')" class="text-red-400">Logout</button>
+            </div>
+            <div class="flex gap-4 mb-8">
+                <input type="text" id="agent-name" placeholder="Agent Name" class="flex-1 bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none">
+                <button onclick="addAgent()" class="bg-green-600 px-6 py-3 rounded-lg font-bold">Add Agent</button>
+            </div>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-gray-700">
+                        <th class="py-4">Agent Name</th>
+                        <th class="py-4 text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="agent-list">
+                    <!-- Agents appear here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        // --- 3D Graphics Logic (Three.js) ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i=0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 10;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const material = new THREE.PointsMaterial({ size: 0.005, color: '#3b82f6' });
+        const particlesMesh = new THREE.Points(particlesGeometry, material);
+        scene.add(particlesMesh);
+
+        camera.position.z = 3;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.001;
+            
+            // Motion reaction to mouse
+            const targetX = (mouseX - window.innerWidth / 2) * 0.0001;
+            const targetY = (mouseY - window.innerHeight / 2) * 0.0001;
+            particlesMesh.rotation.y += targetX;
+            particlesMesh.rotation.x += targetY;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- Application Logic ---
+        function showSection(id) {
+            const sections = ['admin-login', 'admin-panel'];
+            sections.forEach(s => document.getElementById(s).classList.add('hidden-section'));
+            
+            if(id === 'hero') {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            } else {
+                document.getElementById(id).classList.remove('hidden-section');
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        }
+
+        function calculateFees() {
+            const base = parseInt(document.getElementById('calc-service').value);
+            const extra = parseInt(document.getElementById('calc-extra').value) || 0;
+            document.getElementById('calc-result').innerText = `Total: ₹${base + extra}`;
+        }
+
+        // Simple Admin Mockup
+        function checkAdmin() {
+            const pass = document.getElementById('admin-pass').value;
+            if(pass === 'admin123') {
+                showSection('admin-panel');
+            } else {
+                alert('Incorrect Password!');
+            }
+        }
+
+        function addAgent() {
+            const name = document.getElementById('agent-name').value;
+            if(!name) return;
+            const list = document.getElementById('agent-list');
+            const row = document.createElement('tr');
+            row.className = "border-b border-gray-800 hover:bg-white/5 transition";
+            row.innerHTML = `<td class="py-4">${name}</td><td class="py-4 text-right"><button onclick="this.parentElement.parentElement.remove()" class="text-red-500">Delete</button></td>`;
+            list.appendChild(row);
+            document.getElementById('agent-name').value = '';
+        }
+    </script>
+</body>
+  </html>
+                                                          
