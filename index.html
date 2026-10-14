@@ -1,230 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SS SOLUTIONS | Professional Services</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body { margin: 0; overflow-x: hidden; background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; }
-        #canvas-container { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; }
-        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .service-card:hover { transform: translateY(-10px); transition: all 0.3s ease; border-color: #3b82f6; }
-        .hidden-section { display: none; }
-    </style>
+<meta charset="UTF-8">
+<title>SS SOLUTIONS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* ---------- Global ---------- */
+:root{
+    --primary:#0d47a1;
+    --secondary:#1976d2;
+    --bg:#f4f7fb;
+    --white:#fff;
+    --shadow:rgba(0,0,0,0.1);
+    --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:#333;
+    line-height:1.6;
+}
+h1,h2{color:var(--primary);}
+.container{max-width:1200px;margin:auto;padding:1rem;}
+/* ---------- Header ---------- */
+header{
+    background:var(--primary);
+    color:var(--white);
+    padding:1rem 0;
+    text-align:center;
+    perspective:800px;               /* 3D effect parent */
+}
+header h1{
+    font-size:2rem;
+    transform:rotateY(0deg);
+    transition:transform .6s;
+}
+header:hover h1{transform:rotateY(15deg);}
+
+/* ---------- Service cards ---------- */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:2rem;}
+.card{
+    background:var(--white);
+    border-radius:var(--radius);
+    padding:1.2rem;
+    box-shadow:0 4px 6px var(--shadow);
+    transition:transform .3s,box-shadow .3s;
+    transform-style:preserve-3d;
+}
+.card:hover{
+    transform:rotateX(5deg) rotateY(5deg);
+    box-shadow:0 12px 16px var(--shadow);
+}
+.card h3{margin-bottom:.5rem;color:var(--secondary);}
+.card p{font-size:.9rem;}
+
+/* ---------- Calculator ---------- */
+.calc{
+    background:var(--white);
+    border-radius:var(--radius);
+    padding:1.5rem;
+    max-width:500px;
+    margin:2rem auto;
+    box-shadow:0 4px 6px var(--shadow);
+}
+.calc h2{margin-bottom:1rem;}
+.calc label{display:block;margin-top:.8rem;}
+.calc input, .calc select{
+    width:100%;padding:.5rem;margin-top:.3rem;
+    border:1px solid #ccc;border-radius:4px;
+}
+.calc button{
+    margin-top:1rem;padding:.6rem 1.2rem;
+    border:none;background:var(--secondary);
+    color:var(--white);border-radius:4px;
+    cursor:pointer;
+}
+.calc .result{margin-top:1rem;font-weight:bold;}
+
+/* ---------- Admin modal ---------- */
+.modal{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,.6);display:none;align-items:center;
+    justify-content:center;z-index:1000;
+}
+.modal.active{display:flex;}
+.modal .box{
+    background:var(--white);padding:2rem;
+    border-radius:var(--radius);width:90%;max-width:500px;
+    box-shadow:0 8px 12px var(--shadow);
+}
+.modal h2{margin-bottom:1rem;}
+.modal input, .modal textarea{
+    width:100%;margin-top:.4rem;padding:.5rem;
+    border:1px solid #ccc;border-radius:4px;
+}
+.modal button{margin-top:.8rem;padding:.5rem 1rem;background:var(--primary);
+    color:var(--white);border:none;border-radius:4px;cursor:pointer;}
+.close{float:right;font-size:1.2rem;cursor:pointer;color:#777;}
+
+/* ---------- Call‑book ---------- */
+.callbook{
+    background:var(--white);
+    border-radius:var(--radius);
+    padding:1.5rem;
+    max-width:800px;
+    margin:2rem auto;
+    box-shadow:0 4px 6px var(--shadow);
+}
+.callbook table{width:100%;border-collapse:collapse;}
+.callbook th,.callbook td{
+    border:1px solid #eee;padding:.5rem;text-align:left;
+}
+.callbook th{background:#e3f2fd;color:#000;}
+
+/* ---------- Footer ---------- */
+footer{
+    text-align:center;padding:1rem;background:#ddd;margin-top:3rem;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width:600px){
+    header h1{font-size:1.5rem;}
+}
+</style>
 </head>
 <body>
 
-    <div id="canvas-container"></div>
+<header>
+    <h1>SS SOLUTIONS</h1>
+</header>
 
-    <!-- Navigation -->
-    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <h1 class="text-2xl font-bold tracking-tighter text-blue-400">SS SOLUTIONS</h1>
-        <div class="space-x-6 hidden md:flex">
-            <a href="#services" class="hover:text-blue-400 transition">Services</a>
-            <a href="#calculator" class="hover:text-blue-400 transition">Calculator</a>
-            <a href="#booking" class="hover:text-blue-400 transition">Book Call</a>
-            <button onclick="showSection('admin-login')" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition">Admin</button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="h-screen flex flex-col justify-center items-center text-center px-4">
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 animate-pulse">Your Gateway to <span class="text-blue-500">Professional Growth</span></h2>
-        <p class="text-gray-400 max-w-2xl text-lg mb-8">Expert solutions for Open Schooling, Tax filings, Insurance, and Loans. All in one place.</p>
-        <a href="#services" class="bg-blue-600 text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition transform">Explore Services</a>
-    </section>
+<div class="container">
 
     <!-- Service Boxes -->
-    <section id="services" class="py-20 max-w-7xl mx-auto px-6">
-        <h3 class="text-3xl font-bold text-center mb-12">Our Services</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Open Schooling -->
-            <div class="glass p-8 rounded-2xl service-card">
-                <i class="fas fa-graduation-cap text-4xl text-blue-400 mb-4"></i>
-                <h4 class="text-xl font-bold mb-2">Open Schooling</h4>
-                <p class="text-gray-400 text-sm">MP, HS, BA, MA, LLb, Nursing, ITI, Bils & more.</p>
-            </div>
-            <!-- Income Tax -->
-            <div class="glass p-8 rounded-2xl service-card">
-                <i class="fas fa-file-invoice-dollar text-4xl text-green-400 mb-4"></i>
-                <h4 class="text-xl font-bold mb-2">Income Tax</h4>
-                <p class="text-gray-400 text-sm">Expert filing, planning, and tax-related consultancy.</p>
-            </div>
-            <!-- Insurance -->
-            <div class="glass p-8 rounded-2xl service-card">
-                <i class="fas fa-car-crash text-4xl text-red-400 mb-4"></i>
-                <h4 class="text-xl font-bold mb-2">Motor Insurance</h4>
-                <p class="text-gray-400 text-sm">Comprehensive and Third Party insurance solutions.</p>
-            </div>
-            <!-- Loans -->
-            <div class="glass p-8 rounded-2xl service-card">
-                <i class="fas fa-hand-holding-usd text-4xl text-yellow-400 mb-4"></i>
-                <h4 class="text-xl font-bold mb-2">Loan Services</h4>
-                <p class="text-gray-400 text-sm">Personal, Business, and Educational loan assistance.</p>
-            </div>
+    <section class="services">
+        <div class="card"><h3>Open Schooling</h3>
+            <p>MP, HS, BA, MA, LLB, Nursing, ITI, BILS &amp; more.</p>
+        </div>
+        <div class="card"><h3>Income Tax</h3>
+            <p>Preparation, filing, and advisory services.</p>
+        </div>
+        <div class="card"><h3>Motor Insurance</h3>
+            <p>Quotes, renewals, claim assistance.</p>
+        </div>
+        <div class="card"><h3>Loan Services</h3>
+            <p>Personal, education, home‑loan guidance.</p>
         </div>
     </section>
 
     <!-- Fees Calculator -->
-    <section id="calculator" class="py-20 max-w-3xl mx-auto px-6">
-        <div class="glass p-10 rounded-3xl text-center">
-            <h3 class="text-3xl font-bold mb-6">Fees Estimator</h3>
-            <div class="flex flex-col gap-4 text-left">
-                <label class="text-gray-400">Select Service</label>
-                <select id="calc-service" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none">
-                    <option value="1000">Open Schooling (Basic)</option>
-                    <option value="2000">Tax Filing (Individual)</option>
-                    <option value="1500">Insurance Setup</option>
-                    <option value="3000">Loan Consultancy</option>
-                </select>
-                <label class="text-gray-400">Additional Modules/Documents</label>
-                <input type="number" id="calc-extra" value="0" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none">
-                <button onclick="calculateFees()" class="bg-blue-600 py-3 rounded-lg font-bold hover:bg-blue-500 transition mt-4">Calculate Total</button>
-                <div id="calc-result" class="text-2xl font-bold text-center mt-6 text-blue-400">Total: ₹0</div>
-            </div>
-        </div>
+    <section class="calc">
+        <h2>Fees / EMI Calculator</h2>
+        <label for="type">Service</label>
+        <select id="type">
+            <option value="loan">Loan EMI</option>
+            <option value="insurance">Motor Insurance Premium</option>
+        </select>
+
+        <label for="amount">Principal / Insured Value</label>
+        <input type="number" id="amount" placeholder="e.g. 50000">
+
+        <label for="rate">Rate (%)</label>
+        <input type="number" id="rate" placeholder="e.g. 9.5">
+
+        <label for="term">Term (months)</label>
+        <input type="number" id="term" placeholder="e.g. 24">
+
+        <button onclick="calculate()">Calculate</button>
+        <div class="result" id="result"></div>
     </section>
 
-    <!-- Call Booking -->
-    <section id="booking" class="py-20 max-w-3xl mx-auto px-6 mb-20">
-        <div class="glass p-10 rounded-3xl">
-            <h3 class="text-3xl font-bold text-center mb-8">Book a Consultation</h3>
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input type="text" placeholder="Your Name" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none focus:border-blue-500">
-                <input type="tel" placeholder="Phone Number" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none focus:border-blue-500">
-                <input type="date" class="bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none focus:border-blue-500">
-                <button type="button" onclick="alert('Booking request sent!')" class="bg-blue-600 py-3 rounded-lg font-bold hover:bg-blue-500 transition">Confirm Booking</button>
-            </form>
-        </div>
+    <!-- Call‑book (admin only) -->
+    <section class="callbook">
+        <h2>Call‑Book (Admin)</h2>
+        <table id="callTable">
+            <thead><tr><th>Name</th><th>Phone</th><th>Notes</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="openAdmin('call')">Add Entry</button>
     </section>
 
-    <!-- Admin Panel Section -->
-    <section id="admin-login" class="hidden-section py-20 max-w-md mx-auto px-6">
-        <div class="glass p-10 rounded-3xl text-center">
-            <h3 class="text-2xl font-bold mb-6">Admin Login</h3>
-            <input type="password" id="admin-pass" placeholder="Enter Password" class="w-full bg-slate-800 p-3 rounded-lg border border-gray-600 mb-4 outline-none">
-            <button onclick="checkAdmin()" class="w-full bg-blue-600 py-3 rounded-lg font-bold">Login</button>
-            <button onclick="showSection('hero')" class="mt-4 text-gray-400 underline">Back to Home</button>
-        </div>
-    </section>
+    <!-- Admin Panel trigger -->
+    <div style="text-align:center;margin-top:2rem;">
+        <button onclick="openAdmin('login')" style="padding:.6rem 1.2rem;background:var(--primary);
+            color:var(--white);border:none;border-radius:4px;cursor:pointer;">
+            Admin Panel
+        </button>
+    </div>
+</div>
 
-    <section id="admin-panel" class="hidden-section py-20 max-w-4xl mx-auto px-6">
-        <div class="glass p-10 rounded-3xl">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-3xl font-bold">Agent Management</h3>
-                <button onclick="showSection('hero')" class="text-red-400">Logout</button>
-            </div>
-            <div class="flex gap-4 mb-8">
-                <input type="text" id="agent-name" placeholder="Agent Name" class="flex-1 bg-slate-800 p-3 rounded-lg border border-gray-600 outline-none">
-                <button onclick="addAgent()" class="bg-green-600 px-6 py-3 rounded-lg font-bold">Add Agent</button>
-            </div>
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="border-b border-gray-700">
-                        <th class="py-4">Agent Name</th>
-                        <th class="py-4 text-right">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="agent-list">
-                    <!-- Agents appear here -->
-                </tbody>
-            </table>
-        </div>
-    </section>
+<footer>
+    © 2026 SS SOLUTIONS – All rights reserved.
+</footer>
 
-    <script>
-        // --- 3D Graphics Logic (Three.js) ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
+<!-- ==================== MODALS ==================== -->
+<div class="modal" id="loginModal">
+    <div class="box">
+        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+        <h2>Admin Login</h2>
+        <input type="password" id="adminPass" placeholder="Password">
+        <button onclick="adminLogin()">Enter</button>
+    </div>
+</div>
 
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 1500;
-        const posArray = new Float32Array(particlesCount * 3);
+<div class="modal" id="adminModal">
+    <div class="box">
+        <span class="close" onclick="closeModal('adminModal')">&times;</span>
+        <h2>Admin Dashboard</h2>
 
-        for(let i=0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 10;
-        }
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const material = new THREE.PointsMaterial({ size: 0.005, color: '#3b82f6' });
-        const particlesMesh = new THREE.Points(particlesGeometry, material);
-        scene.add(particlesMesh);
+        <h3>Agents</h3>
+        <ul id="agentList"></ul>
+        <input type="text" id="newAgent" placeholder="Agent name">
+        <button onclick="addAgent()">Add Agent</button>
 
-        camera.position.z = 3;
+        <h3 style="margin-top:1rem;">Call‑Book Entry</h3>
+        <input type="text" id="cName" placeholder="Name">
+        <input type="text" id="cPhone" placeholder="Phone">
+        <textarea id="cNotes" rows="2" placeholder="Notes"></textarea>
+        <button onclick="addCall()">Add to Call‑Book</button>
+    </div>
+</div>
 
-        let mouseX = 0;
-        let mouseY = 0;
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+<script>
+/* ---------- Calculator ---------- */
+function calculate(){
+    const type=document.getElementById('type').value;
+    const P=+document.getElementById('amount').value;
+    const r=+document.getElementById('rate').value/12/100;
+    const n=+document.getElementById('term').value;
 
-        function animate() {
-            requestAnimationFrame(animate);
-            particlesMesh.rotation.y += 0.001;
-            particlesMesh.rotation.x += 0.001;
-            
-            // Motion reaction to mouse
-            const targetX = (mouseX - window.innerWidth / 2) * 0.0001;
-            const targetY = (mouseY - window.innerHeight / 2) * 0.0001;
-            particlesMesh.rotation.y += targetX;
-            particlesMesh.rotation.x += targetY;
+    if(!P||!r||!n){document.getElementById('result').textContent='Please fill all fields';return;}
 
-            renderer.render(scene, camera);
-        }
-        animate();
+    let out;
+    if(type==='loan'){
+        // EMI formula
+        out = P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+        out = out.toFixed(2);
+        document.getElementById('result').textContent=`Monthly EMI: ₹${out}`;
+    }else{
+        // Simple motor‑insurance premium estimate
+        out = P * (r*12);
+        out = out.toFixed(2);
+        document.getElementById('result').textContent=`Estimated premium: ₹${out}`;
+    }
+}
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+/* ---------- Admin handling ---------- */
+const ADMIN_PASS = 'ssadmin2026';      // <-- change to a strong password
 
-        // --- Application Logic ---
-        function showSection(id) {
-            const sections = ['admin-login', 'admin-panel'];
-            sections.forEach(s => document.getElementById(s).classList.add('hidden-section'));
-            
-            if(id === 'hero') {
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            } else {
-                document.getElementById(id).classList.remove('hidden-section');
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            }
-        }
+function openAdmin(mode){
+    if(mode==='login'){
+        document.getElementById('loginModal').classList.add('active');
+    }else{
+        document.getElementById('adminModal').classList.add('active');
+        renderAgents();
+    }
+}
+function closeModal(id){ document.getElementById(id).classList.remove('active'); }
 
-        function calculateFees() {
-            const base = parseInt(document.getElementById('calc-service').value);
-            const extra = parseInt(document.getElementById('calc-extra').value) || 0;
-            document.getElementById('calc-result').innerText = `Total: ₹${base + extra}`;
-        }
+function adminLogin(){
+    const pw = document.getElementById('adminPass').value;
+    if(pw===ADMIN_PASS){
+        closeModal('loginModal');
+        openAdmin('panel');
+    }else{
+        alert('Wrong password');
+    }
+}
 
-        // Simple Admin Mockup
-        function checkAdmin() {
-            const pass = document.getElementById('admin-pass').value;
-            if(pass === 'admin123') {
-                showSection('admin-panel');
-            } else {
-                alert('Incorrect Password!');
-            }
-        }
+/* ----- Agents ----- */
+function getAgents(){ return JSON.parse(localStorage.getItem('agents')||'[]'); }
+function saveAgents(arr){ localStorage.setItem('agents',JSON.stringify(arr)); }
 
-        function addAgent() {
-            const name = document.getElementById('agent-name').value;
-            if(!name) return;
-            const list = document.getElementById('agent-list');
-            const row = document.createElement('tr');
-            row.className = "border-b border-gray-800 hover:bg-white/5 transition";
-            row.innerHTML = `<td class="py-4">${name}</td><td class="py-4 text-right"><button onclick="this.parentElement.parentElement.remove()" class="text-red-500">Delete</button></td>`;
-            list.appendChild(row);
-            document.getElementById('agent-name').value = '';
-        }
-    </script>
+function renderAgents(){
+    const list=document.getElementById('agentList');
+    list.innerHTML='';
+    getAgents().forEach((a,i)=>{
+        const li=document.createElement('li');
+        li.textContent=a+' ';
+        const del=document.createElement('button');
+        del.textContent='Delete';
+        del.style.marginLeft='8px';
+        del.onclick=()=>{ deleteAgent(i); };
+        li.appendChild(del);
+        list.appendChild(li);
+    });
+}
+function addAgent(){
+    const name=document.getElementById('newAgent').value.trim();
+    if(!name) return;
+    const arr=getAgents();
+    arr.push(name);
+    saveAgents(arr);
+    document.getElementById('newAgent').value='';
+    renderAgents();
+}
+function deleteAgent(idx){
+    const arr=getAgents();
+    arr.splice(idx,1);
+    saveAgents(arr);
+    renderAgents();
+}
+
+/* ----- Call‑book ----- */
+function getCalls(){ return JSON.parse(localStorage.getItem('calls')||'[]'); }
+function saveCalls(arr){ localStorage.setItem('calls',JSON.stringify(arr)); }
+
+function renderCalls(){
+    const tbody=document.querySelector('#callTable tbody');
+    tbody.innerHTML='';
+    getCalls().forEach(c=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td>${c.name}</td><td>${c.phone}</td><td>${c.notes}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+function addCall(){
+    const name=document.getElementById('cName').value.trim();
+    const phone=document.getElementById('cPhone').value.trim();
+    const notes=document.getElementById('cNotes').value.trim();
+    if(!name||!phone) return;
+    const arr=getCalls();
+    arr.push({name,phone,notes});
+    saveCalls(arr);
+    document.getElementById('cName').value='';
+    document.getElementById('cPhone').value='';
+    document.getElementById('cNotes').value='';
+    renderCalls();
+}
+
+// Populate call‑book on page load (public view)
+renderCalls();
+</script>
 </body>
-  </html>
-                                                          
+            </html>
+                                                                          
