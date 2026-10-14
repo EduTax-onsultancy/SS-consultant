@@ -2,213 +2,316 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>SS SOLUTIONS – আপনার সার্ভিস পার্টনার</title>
+<title>SS SOLUTIONS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* ---------- রুট ভেরিয়েবল (রঙ‑প্যালেট) ---------- */
+/* ---------- রঙ ও বেস ---------- */
 :root{
-    --primary:#2a9d8f;      /* সবুজ‑নীল */
-    --accent:#e9c46a;       /* হলুদ‑গোলাপি */
-    --secondary:#264653;    /* গাঢ় নেভি */
-    --bg:#f0f5f9;           /* হালকা গ্রে‑ব্লু ব্যাকগ্রাউন্ড */
-    --txt:#222;
+    --primary:#0066ff;          /* গাঢ় নীল */
+    --secondary:#ff6600;        /* উজ্জ্বল কমলা */
+    --bg:#f0f5ff;               /* হালকা নীল‑বেইজ */
+    --white:#fff;
+    --shadow:rgba(0,0,0,0.15);
     --radius:12px;
-    --shadow:0 8px 20px rgba(0,0,0,0.12);
 }
 
-/* ---------- মৌলিক রিসেট ---------- */
-*{margin:0;padding:0;box-sizing:border-box;}
+/* ---------- গ্লোবাল ---------- */
+*{box-sizing:border-box;margin:0;padding:0;}
 body{
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:var(--bg);
-    color:var(--txt);
-    line-height:1.6;
+    color:#222;
 }
-h1,h2,h3{color:var(--primary);}
-.container{max-width:1240px;margin:auto;padding:1rem;}
+.container{max-width:1200px;margin:auto;padding:1rem;}
+h1,h2{color:var(--primary);}
 
-/* ---------- হেডার (৩ডি‑টিল্ট) ---------- */
+/* ---------- হেডার (৩D‑লাইটবক্স) ---------- */
 header{
-    background:linear-gradient(135deg, var(--primary), var(--secondary));
-    color:#fff;
+    perspective:900px;               /* 3D‑ইফেক্টের দূরত্ব */
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:var(--white);
     padding:2rem 0;
     text-align:center;
-    perspective:1200px;               /* ৩ডি ইফেক্টের জন্য */
 }
 header h1{
-    font-size:2.5rem;
-    transition:transform .6s ease-out;
+    font-size:2.4rem;
+    transform:rotateY(0deg);
+    transition:transform .6s;
 }
-header:hover h1{transform:rotateY(20deg) rotateX(5deg);}
+header:hover h1{transform:rotateY(15deg);}
 
-/* ---------- ন্যাভিগেশন (রঙ‑ইন্টার‌্যাক্টিভ) ---------- */
-nav{
-    display:flex;justify-content:center;gap:1.5rem;padding:0.8rem 0;
-    background:var(--secondary);
-}
-nav a{
-    color:#fff;text-decoration:none;padding:.4rem .8rem;
-    border-radius:var(--radius);
-    transition:background .3s,transform .3s;
-}
-nav a:hover{
-    background:var(--accent);
-    transform:scale(1.08);
-}
-
-/* ---------- সার্ভিস‑কার্ড (৩ডি‑হভার) ---------- */
+/* ---------- সার্ভিস‑কার্ড (গ্রেডিয়েন্ট + 3D) ---------- */
 .services{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:1.8rem;
-    margin:2rem 0;
+    gap:1.5rem;
+    margin-top:2rem;
 }
 .card{
-    background:#fff;
+    background:var(--white);
     border-radius:var(--radius);
-    padding:1.5rem;
-    box-shadow:var(--shadow);
-    transition:transform .4s,box-shadow .4s;
+    padding:1.3rem;
+    box-shadow:0 4px 6px var(--shadow);
+    transition:transform .3s,box-shadow .3s;
     transform-style:preserve-3d;
 }
 .card:hover{
-    transform:rotateY(10deg) rotateX(5deg);
-    box-shadow:0 12px 24px rgba(0,0,0,0.2);
+    transform:rotateX(6deg) rotateY(6deg);
+    box-shadow:0 12px 16px var(--shadow);
 }
 .card h3{margin-bottom:.5rem;color:var(--secondary);}
-.card p{font-size:.95rem;}
+.card p{font-size:.9rem;}
 
-/* ---------- গ্যালারি‑লাইটবক্স ---------- */
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:.8rem;
-    margin:2rem 0;
+/* ---------- ক্যলকুলেটর ---------- */
+.calc{
+    background:var(--white);
+    border-radius:var(--radius);
+    max-width:500px;
+    margin:2rem auto;
+    padding:1.6rem;
+    box-shadow:0 4px 6px var(--shadow);
 }
-.gallery img{
-    width:100%;height:auto;border-radius:var(--radius);
-    cursor:pointer;transition:transform .3s;
+.calc label{display:block;margin-top:.8rem;}
+.calc input,.calc select{
+    width:100%;padding:.5rem;margin-top:.3rem;
+    border:1px solid #ccc;border-radius:4px;
 }
-.gallery img:hover{transform:scale(1.05);}
+.calc button{
+    margin-top:1rem;padding:.6rem 1.2rem;
+    background:var(--secondary);border:none;
+    color:var(--white);border-radius:4px;cursor:pointer;
+}
+.calc .result{margin-top:1rem;font-weight:bold;}
 
-/* লাইটবক্স (fullscreen overlay) */
-#lightbox{
-    position:fixed;top:0;left:0;width:100vw;height:100vh;
-    background:rgba(0,0,0,.9);
-    display:none;align-items:center;justify-content:center;
-    z-index:1000;
+/* ---------- এডমিন‑মডাল ---------- */
+.modal{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,.6);display:none;align-items:center;
+    justify-content:center;z-index:1000;
 }
-#lightbox img{
-    max-width:90vw;max-height:90vh;border-radius:var(--radius);
-    animation:zoomIn .4s ease-out forwards;
+.modal.active{display:flex;}
+.modal .box{
+    background:var(--white);padding:2rem;
+    border-radius:var(--radius);width:90%;max-width:500px;
+    box-shadow:0 8px 12px var(--shadow);
 }
-@keyframes zoomIn{
-    from{transform:scale(.5);opacity:0;}
-    to{transform:scale(1);opacity:1;}
+.modal h2{margin-bottom:1rem;}
+.modal input,.modal textarea{
+    width:100%;margin-top:.4rem;padding:.5rem;
+    border:1px solid #ccc;border-radius:4px;
 }
-#lightbox:after{
-    content:"✕";
-    position:absolute;top:20px;right:30px;
-    font-size:2rem;color:#fff;cursor:pointer;
+.modal button{
+    margin-top:.8rem;padding:.5rem 1rem;
+    background:var(--primary);color:var(--white);
+    border:none;border-radius:4px;cursor:pointer;
 }
+.close{
+    float:right;font-size:1.2rem;cursor:pointer;color:#777;
+}
+
+/* ---------- কল‑বুক (টেবিল) ---------- */
+.callbook{
+    background:var(--white);
+    border-radius:var(--radius);
+    max-width:800px;
+    margin:2rem auto;
+    padding:1.5rem;
+    box-shadow:0 4px 6px var(--shadow);
+}
+.callbook table{width:100%;border-collapse:collapse;}
+.callbook th,.callbook td{
+    border:1px solid #eee;padding:.5rem;text-align:left;
+}
+.callbook th{background:#e3f2fd;color:#000;}
 
 /* ---------- ফুটার ---------- */
 footer{
-    background:var(--secondary);
-    color:#fff;
-    text-align:center;padding:1rem;
-    margin-top:3rem;
+    text-align:center;padding:1rem;background:#ddd;margin-top:3rem;
 }
 
-/* ---------- রেস্পন্সিভ ---------- */
-@media (max-width:680px){
-    header h1{font-size:1.9rem;}
-    nav{flex-direction:column;}
+/* ---------- রেসপন্সিভ ---------- */
+@media(max-width:600px){
+    header h1{font-size:1.8rem;}
 }
 </style>
 </head>
-
 <body>
 
 <header>
     <h1>SS SOLUTIONS</h1>
-    <p>Open Schooling • Income Tax • Motor Insurance • Loan Services</p>
 </header>
-
-<nav>
-    <a href="#services">সার্ভিস</a>
-    <a href="#gallery">গ্যালারি</a>
-    <a href="#contact">যোগাযোগ</a>
-</nav>
 
 <div class="container">
 
-    <!-- ---------- সার্ভিস বক্স ---------- -->
-    <section id="services" class="services">
+    <!-- সার্ভিস‑বক্স -->
+    <section class="services">
         <div class="card"><h3>ওপেন স্কুলিং</h3>
-            <p>MP, HS, BA, MA, LLB, Nursing, ITI, BILS ও আরও কোর্স।</p>
-        </div>
+            <p>MP, HS, BA, MA, LLB, নার্সিং, ITI, BILS ইত্যাদি।</p></div>
         <div class="card"><h3>ইনকাম ট্যাক্স</h3>
-            <p>ফাইলিং, রিটার্ন প্রস্তুতি ও ট্যাক্স কনসালট্যান্সি।</p>
-        </div>
-        <div class="card"><h3>মোটর ইনশোরেন্স</h3>
-            <p>কোট, রিনিউ ও ক্লেম সহায়তা।</p>
-        </div>
-        <div class="card"><h3>লোন সার্ভিস</h3>
-            <p>পার্সোনাল, এডুকেশন, হোম‑লোন গাইডেন্স।</p>
-        </div>
+            <p>ফাইলিং, সল্যুশন এবং ট্যাক্স পরিকল্পনা।</p></div>
+        <div class="card"><h3>মোটর ইন্স্যুরেন্স</h3>
+            <p>কোট, নবায়ন ও ক্লেইম সাপোর্ট।</p></div>
+        <div class="card"><h3>লোন সেবা</h3>
+            <p>ব্যক্তিগত, শিক্ষা ও হোম‑লোন গাইডেন্স।</p></div>
     </section>
 
-    <!-- ---------- গ্রাফিক্স‑গ্যালারি (লাইটবক্স) ---------- -->
-    <section id="gallery" class="gallery">
-        <!-- ছবি আপনার নিজের হোস্টেড URL দিয়ে বদলাতে হবে -->
-        <img src="https://picsum.photos/seed/1/400/300" alt="ডিজাইন ১" onclick="showLightbox(this)">
-        <img src="https://picsum.photos/seed/2/400/300" alt="ডিজাইন ২" onclick="showLightbox(this)">
-        <img src="https://picsum.photos/seed/3/400/300" alt="ডিজাইন ৩" onclick="showLightbox(this)">
-        <img src="https://picsum.photos/seed/4/400/300" alt="ডিজাইন ৪" onclick="showLightbox(this)">
-        <img src="https://picsum.photos/seed/5/400/300" alt="ডিজাইন ৫" onclick="showLightbox(this)">
-        <img src="https://picsum.photos/seed/6/400/300" alt="ডিজাইন ৬" onclick="showLightbox(this)">
+    <!-- ফি‑ক্যালকুলেটর -->
+    <section class="calc">
+        <h2>ফি / EMI ক্যালকুলেটর</h2>
+        <label for="type">সেবা বাছাই</label>
+        <select id="type">
+            <option value="loan">লোন EMI</option>
+            <option value="insurance">মোটর ইন্স্যুরেন্স প্রিমিয়াম</option>
+        </select>
+
+        <label for="amount">প্রধান / ইনশিউরড ভ্যালু</label>
+        <input type="number" id="amount" placeholder="উদা.: 50000">
+
+        <label for="rate">বিনিয়োগ হার (%)</label>
+        <input type="number" id="rate" placeholder="উদা.: 9.5">
+
+        <label for="term">মেয়াদ (মাস)</label>
+        <input type="number" id="term" placeholder="উদা.: 24">
+
+        <button onclick="calculate()">গণনা করুন</button>
+        <div class="result" id="result"></div>
     </section>
 
-    <!-- ---------- কল‑বুক (সাধারণ) ---------- -->
-    <section id="contact">
-        <h2 style="text-align:center;margin:2rem 0 1rem;">যোগাযোগ</h2>
-        <p style="text-align:center;">ফোন: <strong>+৯১‑৯৯১‑২৩৪‑৫৬৭৮</strong> | ই‑মেইল: <strong>info@sssolutions.in</strong></p>
+    <!-- কল‑বুক (সাধারণ দৃশ্য) -->
+    <section class="callbook">
+        <h2>কল‑বুক (এডমিন)</h2>
+        <table id="callTable">
+            <thead><tr><th>নাম</th><th>ফোন</th><th>নোট</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="openAdmin('call')">এন্ট্রি যোগ করুন</button>
     </section>
 
+    <!-- এডমিন‑বাটন -->
+    <div style="text-align:center;margin-top:2rem;">
+        <button onclick="openAdmin('login')" style="padding:.6rem 1.2rem;
+            background:var(--primary);color:var(--white);border:none;
+            border-radius:4px;cursor:pointer;">
+            এডমিন প্যানেল
+        </button>
+    </div>
 </div>
 
-<footer>
-    © ২০২৬ SS SOLUTIONS — সব অধিকার সংরক্ষিত
-</footer>
+<footer>© 2026 SS SOLUTIONS – সমস্ত অধিকার সংরক্ষিত।</footer>
 
-<!-- ==================== লাইটবক্স ==================== -->
-<div id="lightbox" onclick="hideLightbox()"></div>
+<!-- ==================== মডাল ==================== -->
+<div class="modal" id="loginModal">
+    <div class="box">
+        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+        <h2>এডমিন লগইন</h2>
+        <input type="password" id="adminPass" placeholder="পাসওয়ার্ড">
+        <button onclick="adminLogin()">প্রবেশ</button>
+    </div>
+</div>
+
+<div class="modal" id="adminModal">
+    <div class="box">
+        <span class="close" onclick="closeModal('adminModal')">&times;</span>
+        <h2>এডমিন ড্যাশবোর্ড</h2>
+
+        <h3>এজেন্ট ম্যানেজমেন্ট</h3>
+        <ul id="agentList"></ul>
+        <input type="text" id="newAgent" placeholder="এজেন্টের নাম">
+        <button onclick="addAgent()">এজেন্ট যোগ করুন</button>
+
+        <h3 style="margin-top:1rem;">কল‑বুক যোগ করুন</h3>
+        <input type="text" id="cName" placeholder="নাম">
+        <input type="text" id="cPhone" placeholder="ফোন">
+        <textarea id="cNotes" rows="2" placeholder="নোট"></textarea>
+        <button onclick="addCall()">সেভ করুন</button>
+    </div>
+</div>
 
 <script>
-/* ------- লাইটবক্স ফাংশন ------- */
-function showLightbox(img){
-    const lb = document.getElementById('lightbox');
-    const clone = document.createElement('img');
-    clone.src = img.src;
-    clone.alt = img.alt;
-    // পূর্বে থাকলে মুছে ফেলি
-    while (lb.firstChild) lb.removeChild(lb.firstChild);
-    lb.appendChild(clone);
-    lb.style.display = 'flex';
-}
-function hideLightbox(){
-    document.getElementById('lightbox').style.display='none';
+/* ---------- ক্যলকুলেটর ---------- */
+function calculate(){
+    const type=document.getElementById('type').value;
+    const P=+document.getElementById('amount').value;
+    const r=+document.getElementById('rate').value/12/100;
+    const n=+document.getElementById('term').value;
+    if(!P||!r||!n){document.getElementById('result').textContent='সব ফিল্ড পূরণ করুন';return;}
+    if(type==='loan'){
+        const emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+        document.getElementById('result').textContent=`মাসিক EMI: ₹${emi.toFixed(2)}`;
+    }else{
+        const premium=P*(r*12);
+        document.getElementById('result').textContent=`প্রতিমাসিক প্রিমিয়াম: ₹${premium.toFixed(2)}`;
+    }
 }
 
-/* ------- ছোট‑ডেমো‑সফট‑ইফেক্ট (ঐচ্ছিক) ------- */
-document.querySelectorAll('nav a').forEach(a=>{
-    a.addEventListener('click',e=>{
-        e.preventDefault();
-        const target=document.querySelector(a.getAttribute('href'));
-        target.scrollIntoView({behavior:'smooth'});
+/* ---------- এডমিন লজিক ---------- */
+const ADMIN_PASS='ssadmin2026';        // ← প্রোডাকশনে শক্ত পাসওয়ার্ড দিন
+
+function openAdmin(mode){
+    if(mode==='login') document.getElementById('loginModal').classList.add('active');
+    else document.getElementById('adminModal').classList.add('active');
+    renderAgents(); renderCalls();
+}
+function closeModal(id){ document.getElementById(id).classList.remove('active'); }
+
+function adminLogin(){
+    const pw=document.getElementById('adminPass').value;
+    if(pw===ADMIN_PASS){closeModal('loginModal');openAdmin('panel');}
+    else alert('ভুল পাসওয়ার্ড');
+}
+
+/* ----- এজেন্ট ----- */
+function getAgents(){return JSON.parse(localStorage.getItem('agents')||'[]');}
+function saveAgents(a){localStorage.setItem('agents',JSON.stringify(a));}
+function renderAgents(){
+    const ul=document.getElementById('agentList');
+    ul.innerHTML='';
+    getAgents().forEach((name,i)=>{
+        const li=document.createElement('li');
+        li.textContent=name+' ';
+        const del=document.createElement('button');
+        del.textContent='মুছুন';
+        del.style.marginLeft='8px';
+        del.onclick=()=>{delAgent(i);};
+        li.appendChild(del);
+        ul.appendChild(li);
     });
-});
+}
+function addAgent(){
+    const name=document.getElementById('newAgent').value.trim();
+    if(!name) return;
+    const arr=getAgents(); arr.push(name); saveAgents(arr);
+    document.getElementById('newAgent').value=''; renderAgents();
+}
+function delAgent(idx){
+    const arr=getAgents(); arr.splice(idx,1); saveAgents(arr); renderAgents();
+}
+
+/* ----- কল‑বুক ----- */
+function getCalls(){return JSON.parse(localStorage.getItem('calls')||'[]');}
+function saveCalls(c){localStorage.setItem('calls',JSON.stringify(c));}
+function renderCalls(){
+    const tbody=document.querySelector('#callTable tbody');
+    tbody.innerHTML='';
+    getCalls().forEach(c=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td>${c.name}</td><td>${c.phone}</td><td>${c.notes}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+function addCall(){
+    const name=document.getElementById('cName').value.trim();
+    const phone=document.getElementById('cPhone').value.trim();
+    const notes=document.getElementById('cNotes').value.trim();
+    if(!name||!phone) return;
+    const arr=getCalls(); arr.push({name,phone,notes}); saveCalls(arr);
+    document.getElementById('cName').value=''; document.getElementById('cPhone').value=''; document.getElementById('cNotes').value='';
+    renderCalls();
+}
+
+/* পেজ লোডে কল‑বুক দেখাও (সাজেশন) */
+renderCalls();
 </script>
 </body>
-</html>
+            </html>
+    
